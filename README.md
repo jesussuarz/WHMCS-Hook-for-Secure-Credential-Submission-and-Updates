@@ -132,7 +132,7 @@ Below is the configuration I used for the custom fields:
 | Public Key Server                 | Text Area  | only if necessary  |             |                  | No         | No       | 8                   |
 
 ### Step 5: Adjust the IDs in the customticketpage.php File
-On line 29 of the customticketpage.php file, adjust the custom field IDs to match those in your WHMCS setup. It should look something like this:
+On line 29 of the viewticket.tpl file, adjust the custom field IDs to match those in your WHMCS setup. It should look something like this:
 ```smarty
 {if in_array($customfield.id, [3, 4, 5, 6, 7, 8, 9, 10, 11])} <!-- Custom Field IDs -->
 ```
