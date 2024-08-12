@@ -261,6 +261,5 @@ The ticket is currently closed. All private data will be deleted 24 hours after 
     </div>
 {/if}
 
-
-    <!-- Aquí va el contenido normal del ticket -->
+    <!-- End showCustomContent -->
 {/if}
