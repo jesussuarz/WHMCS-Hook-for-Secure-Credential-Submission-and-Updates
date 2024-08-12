@@ -1,59 +1,11 @@
 <?php
 
+// Hook para manejar la visualización y actualización de los campos personalizados
 add_hook('ClientAreaPageViewTicket', 1, function($vars) {
 
     if (isset($_GET['updatedetails']) && $_GET['updatedetails'] == '1') {
 
-        // Verificar si se envió el formulario para limpiar los datos
-        if (isset($_POST['clearcustomfields']) && $_POST['clearcustomfields'] == '1') {
-
-            // Obtener el ticket ID a partir del tid
-            $command = 'GetTicket';
-            $postData = array(
-                'ticketnum' => $vars['tid'], // Usar el tid para buscar el ticket
-            );
-
-            // Ejecutar la API para obtener el ticket ID
-            $ticketDetails = localAPI($command, $postData);
-
-            if ($ticketDetails['result'] == 'success') {
-                $ticketId = $ticketDetails['ticketid']; // Obtener el ID del ticket
-
-                // Preparar los campos personalizados para borrado (vaciar los valores)
-                $customFieldsToClear = [];
-                foreach ($ticketDetails['customfields'] as $customField) {
-                    $customFieldsToClear[$customField['id']] = ''; // Borrar el valor del campo
-                }
-
-                // Ejecutar la API para actualizar el ticket con los campos vacíos
-                $updateCommand = 'UpdateTicket';
-                $updatePostData = array(
-                    'ticketid' => $ticketId,
-                    'customfields' => base64_encode(serialize($customFieldsToClear)),
-                );
-
-                $updateResults = localAPI($updateCommand, $updatePostData);
-
-                // Redirigir después de la limpieza
-                if ($updateResults['result'] == 'success') {
-                    logActivity("Los campos personalizados han sido limpiados para el ticket ID: " . $ticketId);
-                    header("Location: " . $vars['systemurl'] . "viewticket.php?tid=" . $vars['tid'] . "&c=" . $vars['c'] . "&cleared=1");
-                    exit;
-                } else {
-                    echo '<pre>Error al limpiar los campos personalizados: ';
-                    print_r($updateResults);
-                    echo '</pre>';
-                    exit;
-                }
-            } else {
-                echo '<pre>Error al obtener los detalles del ticket: ';
-                print_r($ticketDetails);
-                echo '</pre>';
-                exit;
-            }
-        }
-
-        // Verificar si se envió el formulario para actualizar los datos
+        // Verificar si se envió el formulario
         if (isset($_POST['updatecustomfields']) && $_POST['updatecustomfields'] == '1') {
 
             // Obtener el ticket ID a partir del tid
@@ -83,17 +35,11 @@ add_hook('ClientAreaPageViewTicket', 1, function($vars) {
                 $updateResults = localAPI($updateCommand, $updatePostData);
 
                 // Redirigir después de la actualización
-                if ($updateResults['result'] == 'success') {
-                    header("Location: " . $vars['systemurl'] . "viewticket.php?tid=" . $vars['tid'] . "&c=" . $vars['c']);
-                    exit;
-                } else {
-                    echo '<pre>Error al actualizar los campos personalizados: ';
-                    print_r($updateResults);
-                    echo '</pre>';
-                    exit;
-                }
+                header("Location: " . $vars['systemurl'] . "viewticket.php?tid=" . $vars['tid'] . "&c=" . $vars['c']);
+                exit;
             } else {
-                echo '<pre>Error al obtener los detalles del ticket: ';
+                // Manejo de error al obtener el ticket ID
+                echo '<pre>';
                 print_r($ticketDetails);
                 echo '</pre>';
                 exit;
