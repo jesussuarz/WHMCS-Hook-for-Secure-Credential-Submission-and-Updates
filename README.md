@@ -152,6 +152,7 @@ Screenshot
 In this example, the ID of the field is 3. Update the IDs in the array with your specific IDs.
 
 ### Adding the "Submit/Update Login Credentials" Button
+![View Ticket Button](https://github.com/jesussuarz/WHMCS-Hook-for-Secure-Credential-Submission-and-Updates/blob/f68162fd21a029d44268cbd463672c15f15903bf/img/view_ticket_boton.png)
 To add a "Submit/Update Login Credentials" button to your WHMCS template, follow these steps:
 
 1. Open the viewticket.tpl file located in your template directory:
@@ -194,8 +195,6 @@ This ensures that the button will only display in the departments specified, giv
 ## Final Result
 Once everything is set up correctly, you should see screens similar to this:
 ![View Ticket User Add](https://github.com/jesussuarz/WHMCS-Hook-for-Secure-Credential-Submission-and-Updates/blob/f68162fd21a029d44268cbd463672c15f15903bf/img/view_ticket_user_add.png)
-
-![View Ticket Button](https://github.com/jesussuarz/WHMCS-Hook-for-Secure-Credential-Submission-and-Updates/blob/f68162fd21a029d44268cbd463672c15f15903bf/img/view_ticket_boton.png)
 
 ### How to Use the /clear_custom_fields_cron.php File
 To ensure your custom fields are cleared periodically, follow these steps:
